@@ -45,7 +45,7 @@ function App() {
   const fetchListings = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/v1/listings/');
+      const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/v1/listings/');
       const data = await res.json();
       setListings(data);
     } catch (err) {
@@ -56,7 +56,7 @@ function App() {
 
   const fetchForecasts = async () => {
     try {
-      const res = await fetch('/api/v1/forecasting/donor/1');
+      const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/v1/forecasting/donor/1');
       const data = await res.json();
       if (Array.isArray(data)) setForecasts(data);
       else setForecasts([]);

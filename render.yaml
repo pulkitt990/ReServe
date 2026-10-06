@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: reserve-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: reserve-db
+          property: connectionString
+      - key: SYNC_DATABASE_URL
+        fromDatabase:
+          name: reserve-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: reserve-cache
+          property: connectionString
+      - key: PYTHONPATH
+        value: /app
+
+  - type: redis
+    name: reserve-cache
+    plan: free
+    region: oregon
+
+databases:
+  - name: reserve-db
+    plan: free
+    region: oregon

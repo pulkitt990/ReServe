@@ -7,7 +7,7 @@ export default function AdminDashboard({ listings, loading }) {
 
   const fetchStats = () => {
     setStatsLoading(true);
-    fetch('/api/v1/admin/stats')
+    fetch((import.meta.env.VITE_API_URL || '') + '/api/v1/admin/stats')
       .then(res => res.json())
       .then(data => {
         setStats(data);

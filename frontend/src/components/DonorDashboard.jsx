@@ -15,7 +15,7 @@ export default function DonorDashboard({
           <button 
             onClick={async () => {
               setNotification("Training model and generating forecast...");
-              await fetch('/api/v1/forecasting/predict/1?days=7', { method: 'POST' });
+              await fetch((import.meta.env.VITE_API_URL || '') + '/api/v1/forecasting/predict/1?days=7', { method: 'POST' });
               fetchForecasts();
             }}
             className="px-4 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-xs font-bold rounded-lg transition-colors border border-emerald-300"
