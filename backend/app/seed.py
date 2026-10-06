@@ -1,6 +1,7 @@
 import asyncio
 from datetime import datetime, timedelta
 import bcrypt
+from sqlalchemy import text
 from app.core.database import AsyncSessionLocal
 from app.models.entities import (
     User,
@@ -21,6 +22,12 @@ def hash_pwd(password: str) -> str:
 async def seed():
     print("🌱 Seeding realistic test data for ReServe...")
     async with AsyncSessionLocal() as session:
+        
+        existing = await session.execute(text("SELECT id FROM users LIMIT 1"))
+        if existing.scalar() is not None:
+            print("Data already seeded. Skipping.")
+            return
+
         # 1. Create Users & Donors
         donor_users_data = [
             {
