@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reserve-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: reserve-frontend
+  template:
+    metadata:
+      labels:
+        app: reserve-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: reserve-frontend:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reserve-frontend
+spec:
+  selector:
+    app: reserve-frontend
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer

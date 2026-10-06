@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reserve-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reserve-postgres
+  template:
+    metadata:
+      labels:
+        app: reserve-postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:16-alpine
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: reserve-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          value: reserve_db
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: pgdata
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: pgdata
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reserve-postgres
+spec:
+  selector:
+    app: reserve-postgres
+  ports:
+  - port: 5432
+    targetPort: 5432

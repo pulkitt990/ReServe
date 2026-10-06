@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reserve-config
+data:
+  DATABASE_URL: "postgresql+asyncpg://postgres:secretpassword@reserve-postgres:5432/reserve_db"
+  SYNC_DATABASE_URL: "postgresql://postgres:secretpassword@reserve-postgres:5432/reserve_db"
+  REDIS_URL: "redis://reserve-redis:6379/0"
