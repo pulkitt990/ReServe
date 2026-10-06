@@ -19,16 +19,15 @@ services:
         fromService:
           type: redis
           name: reserve-cache
-    ipAllowList: []
           property: connectionString
       - key: PYTHONPATH
         value: /app
 
   - type: redis
     name: reserve-cache
-    ipAllowList: []
     plan: free
     region: oregon
+    ipAllowList: []
 
 databases:
   - name: reserve-db
