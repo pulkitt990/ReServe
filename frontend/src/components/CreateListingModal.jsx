@@ -22,8 +22,8 @@ export default function CreateListingModal({ isOpen, onClose, fetchListings, set
         pickup_address: "42 Market Street, Sector 18",
         latitude: 28.5700,
         longitude: 77.3200,
-        prep_time: prepTime.toISOString(),
-        expiry_time: expiryTime.toISOString(),
+        prep_time: prepTime.toISOString().slice(0, 19),
+        expiry_time: expiryTime.toISOString().slice(0, 19),
         dietary_flags: []
       };
 
