@@ -15,7 +15,6 @@ export default function CreateListingModal({ isOpen, onClose, fetchListings, set
       const expiryTime = new Date(now.getTime() + parseInt(form.get('expiry_hrs')) * 3600000);
       
       const payload = {
-        donor_id: "1", // Hardcoded to first donor for demo
         title: form.get('title'),
         food_type: form.get('food_type'),
         quantity_meals: parseInt(form.get('qty')),
@@ -28,11 +27,15 @@ export default function CreateListingModal({ isOpen, onClose, fetchListings, set
         dietary_flags: []
       };
 
-      await fetch((import.meta.env.VITE_API_URL || '') + '/api/v1/listings/', {
+      const response = await fetch((import.meta.env.VITE_API_URL || '') + '/api/v1/listings/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
+      
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}`);
+      }
       
       setNotification("New surplus listing created successfully!");
       fetchListings();
