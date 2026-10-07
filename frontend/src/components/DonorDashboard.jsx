@@ -51,7 +51,7 @@ export default function DonorDashboard({
           <h3 className="font-display text-xl font-bold text-reserve-dark flex items-center gap-2">
             <Utensils className="w-5 h-5 text-reserve-urgency" /> Active Food Listings & History
           </h3>
-          <span className="text-xs text-stone-500">Sorted by earliest expiry first</span>
+          <div className="flex items-center gap-4"><span className="text-xs text-stone-500 hidden sm:inline">Sorted by earliest expiry first</span><button onClick={() => setShowCreateModal(true)} className="px-3 py-1.5 bg-reserve-primary hover:bg-reserve-primary/90 text-white text-xs font-bold rounded-lg transition-colors shadow-sm">Create Listing</button></div>
         </div>
 
         {loading ? (

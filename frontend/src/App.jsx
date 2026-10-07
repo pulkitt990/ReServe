@@ -4,6 +4,7 @@ import DonorDashboard from './components/DonorDashboard';
 import NGODashboard from './components/NGODashboard';
 import AdminDashboard from './components/AdminDashboard';
 import HeroLanding from './components/HeroLanding';
+import CreateListingModal from './components/CreateListingModal';
 import HamburgerMenu from './components/HamburgerMenu';
 
 const PageWrapper = ({ children, setActivePersona, persona }) => (
@@ -169,6 +170,12 @@ function App() {
         </AnimatePresence>
       </main>
 
+      <CreateListingModal 
+        isOpen={showCreateModal} 
+        onClose={() => setShowCreateModal(false)} 
+        fetchListings={fetchListings}
+        setNotification={setNotification}
+      />
     </div>
   );
 }
